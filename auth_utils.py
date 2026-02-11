@@ -1,7 +1,27 @@
 import jwt
 import datetime
+import os
+import hashlib
+from dotenv import load_dotenv
 
-SECRET_KEY= "Signal-forest!22-copper-meteor-pillow-Atlas"
+load_dotenv()
+
+SECRET_KEY= os.getenv("MY_SUPER_SECRET_KEY")
+
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+USER_DB = {
+    "Enthusiast_Dev": "SecurePass123",
+    "Admin_User": "PythonIsCool"
+}
+
+def authenticate(username, passsword):
+    if username in USER_DB and USER_DB[username] == passsword:
+        return True
+    return False
+
+
 
 def create_token(username):
     payload = {
