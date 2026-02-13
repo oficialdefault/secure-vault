@@ -5,7 +5,6 @@ import hashlib
 from dotenv import load_dotenv
 
 load_dotenv()
-
 SECRET_KEY= os.getenv("MY_SUPER_SECRET_KEY")
 
 def hash_password(password):
@@ -33,5 +32,12 @@ def create_token(username):
 
 
 if __name__ == "__main__":
-    my_token = create_token("Enthusiast_Dev")
-    print(f"My first JWT: {my_token}")
+    user = input("Enter username: ")
+    pw = input("Enter password: ")
+
+    if authenticate(user, pw):  
+        token = create_token(user)
+        print(f"✅ Login Successful! Your Secure Token: {token}")
+    else:
+        print("❌ Access Denied: Incorrect credentials  .")  
+    
